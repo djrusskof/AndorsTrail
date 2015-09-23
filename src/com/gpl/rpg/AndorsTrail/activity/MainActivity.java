@@ -93,6 +93,16 @@ public final class MainActivity
 
 		if (AndorsTrailApplication.DEVELOPMENT_DEBUGBUTTONS)
 			new DebugInterface(controllers, world, this).addDebugButtons();
+		
+		// #DBE : Test ajout boutons teleport
+		if(AndorsTrailApplication.TELEPORT_BUTTONS)
+			new DebugInterface(controllers, world, this).addTeleportButtons();
+		
+		// #DBE : Ajout traitement pour empecher la mise en veille
+		/*if(preferences.read(this))
+		{
+			
+		}*/
 
 		quickitemview.setVisibility(View.GONE);
 		quickitemview.registerForContextMenu(this);

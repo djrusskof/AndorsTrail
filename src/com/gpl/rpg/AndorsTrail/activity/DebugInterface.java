@@ -12,6 +12,7 @@ import com.gpl.rpg.AndorsTrail.R;
 import com.gpl.rpg.AndorsTrail.context.ControllerContext;
 import com.gpl.rpg.AndorsTrail.context.WorldContext;
 import com.gpl.rpg.AndorsTrail.model.map.PredefinedMap;
+import com.gpl.rpg.AndorsTrail.model.map.MapObject;;
 
 public final class DebugInterface {
 	private final ControllerContext controllerContext;
@@ -27,6 +28,47 @@ public final class DebugInterface {
 	}
 
 	public void addDebugButtons() {
+		
+		// #DBE : Ajout boutons de teleport
+		/*addDebugButtons(new DebugButton[] {
+				new DebugButton("cg", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "crossglen", "hall", 0, 0);
+					}
+				})
+				,new DebugButton("vg", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "vilegard_s", "tavern", 0, 0);
+					}
+				})
+				,new DebugButton("cr", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "houseatcrossroads4", "down", 0, 0);
+					}
+				})
+				,new DebugButton("lf", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "loneford9", "south", 0, 0);
+					}
+				})
+				,new DebugButton("fh", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "fallhaven_ne", "clothes", 0, 0);
+					}
+				})
+				,new DebugButton("rc", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "roadtocarntower1", "left3", 0, 0);
+					}
+				})
+		});
+		*/
 		if (!AndorsTrailApplication.DEVELOPMENT_DEBUGBUTTONS) return;
 
 		addDebugButtons(new DebugButton[] {
@@ -97,7 +139,7 @@ public final class DebugInterface {
 					showToast(mainActivity, "DEBUG: hp set to max", Toast.LENGTH_SHORT);
 				}
 			})
-			/*
+			
 			,new DebugButton("cg", new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -134,8 +176,54 @@ public final class DebugInterface {
 					controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "roadtocarntower1", "left3", 0, 0);
 				}
 			})
-			*/
+			
 		});
+	}
+	
+public void addTeleportButtons() {
+		
+	if (!AndorsTrailApplication.TELEPORT_BUTTONS) return;
+	
+		// #DBE : Ajout boutons de teleport
+		addTeleportButtons(new DebugButton[] {
+				new DebugButton("cg", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "crossglen", "hall", 0, 0);
+					}
+				})
+				,new DebugButton("vg", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "vilegard_s", "tavern", 0, 0);
+					}
+				})
+				,new DebugButton("cr", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "houseatcrossroads4", "down", 0, 0);
+					}
+				})
+				,new DebugButton("lf", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "loneford9", "south", 0, 0);
+					}
+				})
+				,new DebugButton("fh", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "fallhaven_ne", "clothes", 0, 0);
+					}
+				})
+				,new DebugButton("rc", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "roadtocarntower1", "left3", 0, 0);
+					}
+				})
+		});
+		
 	}
 
 	private void showToast(Context context, String msg, int duration) {
@@ -178,6 +266,37 @@ public final class DebugInterface {
 		int id = 1;
 		for (DebugButton b : buttons) {
 			addDebugButton(b, id, layout);
+			++id;
+		}
+	}
+	
+	private void addTeleportButton(DebugButton button, int id, RelativeLayout layout) {
+		if (!AndorsTrailApplication.TELEPORT_BUTTONS) return;
+
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.smalltext_buttonheight));
+		if (id == 1)
+			lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		else
+			lp.addRule(RelativeLayout.RIGHT_OF, id - 1);
+		lp.addRule(RelativeLayout.ABOVE, R.id.main_statusview);
+		Button b = new Button(mainActivity);
+		b.setText(button.text);
+		b.setTextSize(10);//res.getDimension(R.dimen.actionbar_text));
+		b.setId(id);
+		b.setLayoutParams(lp);
+		b.setOnClickListener(button.listener);
+		layout.addView(b);
+	}
+	
+	private void addTeleportButtons(DebugButton[] buttons) {
+		if (!AndorsTrailApplication.TELEPORT_BUTTONS) return;
+
+		if (buttons == null || buttons.length <= 0) return;
+		RelativeLayout layout = (RelativeLayout) mainActivity.findViewById(R.id.main_container);
+
+		int id = 1;
+		for (DebugButton b : buttons) {
+			addTeleportButton(b, id, layout);
 			++id;
 		}
 	}

@@ -35,7 +35,6 @@ import com.gpl.rpg.AndorsTrail.model.quest.QuestProgress;
 import com.gpl.rpg.AndorsTrail.resource.tiles.TileManager;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 public final class ConversationActivity
 		extends Activity
