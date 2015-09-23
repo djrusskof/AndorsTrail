@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources><string name="about_interface"><![CDATA[
+
+<div><b>Les paramètres de jeu</b> sont accessibles en cliquant sur le bouton Menu de votre tablette/smartphone.</div>
+
+<p>________________</p>
+<h1>Icônes</h1>
+
+<div><b>Le Coffre</b><img alt="chest" src="chest.png" /></div>
+<p>Raccourcis [Appui long sur les sacs à l\'intérieur pour assigner l\'objet à un raccourcis]</p>
+
+<div><b>Le Héro</b><img alt="hero" src="char_hero.png" /></div>
+<p>Menu [Synthèse, Quêtes, Compétences &amp; Inventaire *]</p>
+<p>* (Dans l\'inventaire, "cliquer" sur un objet pour avoir une info &amp; "cliquer longuement" pour plus d\'options)</p>
+
+<div><b>Ennemis</b><img alt="monster" src="monster.png" /></div>
+<p>Information [Apparaît pendant le Combat]</p>
+
+
+
+<p>________________</p>
+<h1>Combat</h1>
+
+<p>Les actions réalisées pendant un combat coûtent des AP...</p>
+
+<div><b>Attaquer</b> - [3AP] *</div>
+<img alt="attacking" src="doubleattackexample.png" />
+<p>* (Changer d\'équipement &amp; Utiliser des objets peut modifier les AP &amp; les coûts d\'utilisation)</p>
+
+<div><b>Utiliser un objet</b> - [5AP]</div>
+<div><b>S\'évader</b> - [6AP]</div>
+
+
+
+<p>________________</p>
+<h1>Combat avancé</h1>
+
+<div>Pendant un combat, cliquer longuement sur une case adjacente au Héro...</div>
+
+<div><b>Pour s\'évader</b></div>
+<p>(la case choisie est surlignée - le bouton Attaque devient Déplacer)</p>
+<img alt="flee" src="flee_example.png" />
+<p>[le mode évasion est activé - Cliquer longuement sur l\'ennemi pour retourner en combat]</p>
+
+<div><b>Changer de cible</b></div>
+<p>(la cible rouge se déplace entre les ennemis)</p>
+<p>[la cible a été modifiée]</p>
+
+]]></string></resources>
