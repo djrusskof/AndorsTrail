@@ -186,40 +186,46 @@ public void addTeleportButtons() {
 	
 		// #DBE : Ajout boutons de teleport
 		addTeleportButtons(new DebugButton[] {
-				new DebugButton("cg", new OnClickListener() {
+				new DebugButton("CG", new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "crossglen", "hall", 0, 0);
 					}
 				})
-				,new DebugButton("vg", new OnClickListener() {
+				,new DebugButton("VG", new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "vilegard_s", "tavern", 0, 0);
 					}
 				})
-				,new DebugButton("cr", new OnClickListener() {
+				,new DebugButton("CR", new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "houseatcrossroads4", "down", 0, 0);
 					}
 				})
-				,new DebugButton("lf", new OnClickListener() {
+				,new DebugButton("LF", new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "loneford9", "south", 0, 0);
 					}
 				})
-				,new DebugButton("fh", new OnClickListener() {
+				,new DebugButton("FH", new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "fallhaven_ne", "clothes", 0, 0);
 					}
 				})
-				,new DebugButton("rc", new OnClickListener() {
+				,new DebugButton("RC", new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "roadtocarntower1", "left3", 0, 0);
+					}
+				})
+				,new DebugButton("FL", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "flagstone0", "house", 0, 0);
 					}
 				})
 		});
