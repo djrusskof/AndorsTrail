@@ -228,6 +228,24 @@ public void addTeleportButtons() {
 						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "flagstone0", "house", 0, 0);
 					}
 				})
+				,new DebugButton("PR", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "blackwater_mountain11", "south", 0, 0);
+					}
+				})
+				,new DebugButton("BMW", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "blackwater_mountain30", "east", 0, 0);
+					}
+				})
+				,new DebugButton("BMS", new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "blackwater_mountain43", "south", 0, 0);
+					}
+				})
 		});
 		
 	}
