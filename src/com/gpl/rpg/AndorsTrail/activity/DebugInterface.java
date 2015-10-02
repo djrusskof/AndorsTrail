@@ -4,9 +4,17 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gpl.rpg.AndorsTrail.AndorsTrailApplication;
 import com.gpl.rpg.AndorsTrail.R;
 import com.gpl.rpg.AndorsTrail.context.ControllerContext;
@@ -19,6 +27,7 @@ public final class DebugInterface {
 	private final MainActivity mainActivity;
 	private final Resources res;
 	private final WorldContext world;
+	
 
 	public DebugInterface(ControllerContext controllers, WorldContext world, MainActivity mainActivity) {
 		this.controllerContext = controllers;
@@ -180,74 +189,77 @@ public final class DebugInterface {
 		});
 	}
 	
-public void addTeleportButtons() {
+	// Classe permettant de stocker un lieu de teleportation
+	// Class for record a teleportation place with it name
+	private final static class teleportPlace
+	{
+		public String name = "";
+		public String mapName = "";
+		public String placeName = "";
 		
-	if (!AndorsTrailApplication.TELEPORT_BUTTONS) return;
+		public teleportPlace(String pName, String pMapName, String pPlaceName)
+		{
+			name = pName;
+			mapName = pMapName;
+			placeName = pPlaceName;
+		}
+	}
 	
-		// #DBE : Ajout boutons de teleport
-		addTeleportButtons(new DebugButton[] {
-				new DebugButton("CG", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "crossglen", "hall", 0, 0);
-					}
-				})
-				,new DebugButton("VG", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "vilegard_s", "tavern", 0, 0);
-					}
-				})
-				,new DebugButton("CR", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "houseatcrossroads4", "down", 0, 0);
-					}
-				})
-				,new DebugButton("LF", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "loneford9", "south", 0, 0);
-					}
-				})
-				,new DebugButton("FH", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "fallhaven_ne", "clothes", 0, 0);
-					}
-				})
-				,new DebugButton("RC", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "roadtocarntower1", "left3", 0, 0);
-					}
-				})
-				,new DebugButton("FL", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "flagstone0", "house", 0, 0);
-					}
-				})
-				,new DebugButton("PR", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "blackwater_mountain11", "south", 0, 0);
-					}
-				})
-				,new DebugButton("BMW", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "blackwater_mountain30", "east", 0, 0);
-					}
-				})
-				,new DebugButton("BMS", new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, "blackwater_mountain43", "south", 0, 0);
-					}
-				})
-		});
+	// Liste des lieux ou l'on peux se teleporter
+	private final teleportPlace[] tabTeleportPlace = new teleportPlace[]{
+		new teleportPlace("", "dummy", "dummy"),
+		new teleportPlace("CROSSGLEN", "crossglen", "hall"),
+		new teleportPlace("VILEGARD", "vilegard_s", "tavern"),
+		new teleportPlace("CROSSROAD", "houseatcrossroads4", "down"),
+		new teleportPlace("LONEFORD", "loneford9", "south"),
+		new teleportPlace("FALLHAVEN", "fallhaven_ne", "clothes"),
+		new teleportPlace("ROAD TO CARN TOWER", "roadtocarntower1", "left3"),
+		new teleportPlace("FLAGSTONE", "flagstone0", "house"),
+		new teleportPlace("PRIMM", "blackwater_mountain11", "south"),
+		new teleportPlace("BLACK WATER ABANDONED HOUSE", "blackwater_mountain30", "east"),
+		new teleportPlace("BLACK WATER SETTLEMENT", "blackwater_mountain43", "south"),
+		new teleportPlace("CROSSGLEN", "crossglen", "hall")
+	};
+	
+	public void addTeleportSpinner() {
 		
+		if (!AndorsTrailApplication.TELEPORT_SPINNER) return;
+		
+		RelativeLayout layout = (RelativeLayout) mainActivity.findViewById(R.id.main_container);
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.smalltext_buttonheight));
+		lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		lp.addRule(RelativeLayout.ABOVE, R.id.main_statusview);
+		
+		Spinner s = new Spinner(mainActivity);
+		
+		List<String> list = new ArrayList<String>();
+		
+		for (teleportPlace teleport : tabTeleportPlace) {
+			list.add(teleport.name);
+		}
+		
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mainActivity,android.R.layout.simple_spinner_item, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		s.setAdapter(dataAdapter);
+		
+		s.setLayoutParams(lp);
+		
+		s.setOnItemSelectedListener(new OnItemSelectedListener() {
+	        @Override
+	        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+	        	if(position != 0)
+	        		controllerContext.movementController.placePlayerAsyncAt(MapObject.MapObjectType.newmap, tabTeleportPlace[position].mapName, tabTeleportPlace[position].placeName, 0, 0);
+	        }
+	
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+	    });
+		
+		layout.addView(s);
 	}
 
 	private void showToast(Context context, String msg, int duration) {
@@ -290,37 +302,6 @@ public void addTeleportButtons() {
 		int id = 1;
 		for (DebugButton b : buttons) {
 			addDebugButton(b, id, layout);
-			++id;
-		}
-	}
-	
-	private void addTeleportButton(DebugButton button, int id, RelativeLayout layout) {
-		if (!AndorsTrailApplication.TELEPORT_BUTTONS) return;
-
-		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, res.getDimensionPixelSize(R.dimen.smalltext_buttonheight));
-		if (id == 1)
-			lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		else
-			lp.addRule(RelativeLayout.RIGHT_OF, id - 1);
-		lp.addRule(RelativeLayout.ABOVE, R.id.main_statusview);
-		Button b = new Button(mainActivity);
-		b.setText(button.text);
-		b.setTextSize(10);//res.getDimension(R.dimen.actionbar_text));
-		b.setId(id);
-		b.setLayoutParams(lp);
-		b.setOnClickListener(button.listener);
-		layout.addView(b);
-	}
-	
-	private void addTeleportButtons(DebugButton[] buttons) {
-		if (!AndorsTrailApplication.TELEPORT_BUTTONS) return;
-
-		if (buttons == null || buttons.length <= 0) return;
-		RelativeLayout layout = (RelativeLayout) mainActivity.findViewById(R.id.main_container);
-
-		int id = 1;
-		for (DebugButton b : buttons) {
-			addTeleportButton(b, id, layout);
 			++id;
 		}
 	}

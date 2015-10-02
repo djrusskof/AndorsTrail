@@ -95,8 +95,11 @@ public final class MainActivity
 			new DebugInterface(controllers, world, this).addDebugButtons();
 		
 		// #DBE : Test ajout boutons teleport
-		if(AndorsTrailApplication.TELEPORT_BUTTONS)
-			new DebugInterface(controllers, world, this).addTeleportButtons();
+		if(AndorsTrailApplication.TELEPORT_SPINNER)
+		{
+			new DebugInterface(controllers, world, this).addTeleportSpinner();
+			//new DebugInterface(controllers, world, this).addTeleportButtons();
+		}
 		
 		// #DBE : Ajout traitement pour empecher la mise en veille
 		/*if(preferences.read(this))
